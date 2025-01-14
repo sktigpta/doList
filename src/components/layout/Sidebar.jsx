@@ -22,12 +22,10 @@ const Sidebar = ({ isOpen, setIsOpen, darkMode, setDarkMode }) => {
     { icon: <Users size={20} />, label: 'Assigned to me' },
   ];
 
-  // Access the tasks array from your store
   const tasks = useTodoStore((state) => state.tasks);
 
   return (
     <div className={darkMode ? 'dark' : ''}>
-      {/* Toggle Menu Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`
@@ -38,7 +36,6 @@ const Sidebar = ({ isOpen, setIsOpen, darkMode, setDarkMode }) => {
         {isOpen ? <X size={10} /> : <Menu size={24} />}
       </button>
 
-      {/* Sidebar */}
       <div
         className={`
           fixed top-0 left-0 h-screen w-64 
@@ -49,7 +46,6 @@ const Sidebar = ({ isOpen, setIsOpen, darkMode, setDarkMode }) => {
           border-r border-gray-200 dark:border-neutral-800
         `}
       >
-        {/* Profile Section */}
         <div className="p-4 pb-6 flex items-center mt-8">
           <div className="w-10 h-10 rounded-full overflow-hidden mr-3">
             <img
@@ -63,7 +59,6 @@ const Sidebar = ({ isOpen, setIsOpen, darkMode, setDarkMode }) => {
           </div>
         </div>
 
-        {/* Navigation */}
         <nav className="flex-1">
           <ul className="space-y-1 px-2">
             {menuItems.map((item, index) => (
@@ -89,7 +84,6 @@ const Sidebar = ({ isOpen, setIsOpen, darkMode, setDarkMode }) => {
           </ul>
         </nav>
 
-        {/* Add List Button */}
         <div className="p-4">
           <button className="flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
             <Plus size={20} className="mr-3" />
@@ -97,13 +91,11 @@ const Sidebar = ({ isOpen, setIsOpen, darkMode, setDarkMode }) => {
           </button>
         </div>
 
-        {/* Today's Tasks Counter */}
         <div className="p-4 border-t border-gray-200 dark:border-neutral-800">
           <div className="flex items-center justify-between">
             <div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Today Tasks</div>
               <div className="text-2xl font-semibold dark:text-white">
-                {/* Display the number of tasks */}
                 {tasks.length}
               </div>
             </div>

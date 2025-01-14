@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { TaskForm } from '../components/tasks/TaskForm';
 import { TaskList } from '../components/tasks/TaskList';
-import { UserPresence } from '../components/collaboration/UserPresence';
-import Sidebar from '../components/layout/Sidebar';
 
 const Home = ({ isOpen }) => {
     const [darkMode, setDarkMode] = useState(false);

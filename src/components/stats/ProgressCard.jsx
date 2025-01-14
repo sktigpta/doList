@@ -23,16 +23,15 @@ export const ProgressCard = () => {
     ],
   };
 
-  // Define chart options
   const options = {
     responsive: true,
     maintainAspectRatio: true,
     plugins: {
       tooltip: {
-        enabled: false, // Disable tooltips
+        enabled: false,
       },
       legend: {
-        display: false, // Disable the legend
+        display: false,
       },
     },
   };
