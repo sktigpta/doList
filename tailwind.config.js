@@ -1,14 +1,14 @@
-/** @type {import('tailwindcss').Config} */
-export default {
-    content: [
-      "./index.html",
-      "./src/**/*.{js,ts,jsx,tsx}",
-    ],
-    theme: {
-      extend: {},
-    },
-    plugins: [
-      // Using the forms plugin in a way compatible with Vite
-      require('@tailwindcss/forms')(),
-    ],
-  }
+// tailwind.config.js
+module.exports = {
+  darkMode: 'class', // Enable dark mode using the 'class' strategy
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
+};

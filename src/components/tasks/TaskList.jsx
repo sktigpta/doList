@@ -1,26 +1,23 @@
 import React, { useState } from 'react';
-import { LayoutGrid, LayoutList } from 'lucide-react'; // Icons for the buttons
+import { LayoutGrid, LayoutList } from 'lucide-react';
 import { TaskItem } from './TaskItem';
 import useTodoStore from '../../store/todoStore';
 import { Card, CardContent } from '../ui/Card';
 
 export const TaskList = () => {
   const tasks = useTodoStore((state) => state.tasks);
-  const [layout, setLayout] = useState('full'); // 'full' or 'medium'
+  const [layout, setLayout] = useState('full');
 
-  // Filter tasks into completed and incomplete
   const completedTasks = tasks.filter((task) => task.completed);
   const incompleteTasks = tasks.filter((task) => !task.completed);
 
-  // Handle layout change (full or medium)
   const toggleLayout = (newLayout) => {
     setLayout(newLayout);
   };
 
   return (
-    <Card>
-      <CardContent>
-        {/* Layout toggle buttons */}
+    <Card className="flex-grow w-full">
+      <CardContent className="w-full">
         <div className="flex justify-end space-x-3 m-4 mr-0">
           <button
             onClick={() => toggleLayout('full')}
@@ -36,7 +33,6 @@ export const TaskList = () => {
           </button>
         </div>
 
-        {/* Incomplete Tasks */}
         <div>
           <h3 className="text-xl font-semibold mb-2">Incomplete Tasks</h3>
           <div className={`grid gap-4 ${layout === 'full' ? 'grid-cols-1' : 'grid-cols-3'}`}>
@@ -46,7 +42,6 @@ export const TaskList = () => {
           </div>
         </div>
 
-        {/* Completed Tasks */}
         <div className="mt-6">
           <h3 className="text-xl font-semibold mb-2">Completed Tasks</h3>
           <div className={`grid gap-4 ${layout === 'full' ? 'grid-cols-1' : 'grid-cols-3'}`}>

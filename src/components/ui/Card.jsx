@@ -1,13 +1,16 @@
 import React from 'react';
 import { cn } from '../../lib/utils';
 
-export const Card = ({ className, children, ...props }) => {
+export const Card = ({ className, children, darkMode, ...props }) => {
   return (
-    <div 
+    <div
       className={cn(
-        "rounded-lg border bg-white shadow-sm", 
+        "rounded-lg border shadow-sm",
+        darkMode
+          ? 'bg-gray-800 text-white border-gray-700'
+          : 'bg-white text-gray-900 border-gray-200',
         className
-      )} 
+      )}
       {...props}
     >
       {children}

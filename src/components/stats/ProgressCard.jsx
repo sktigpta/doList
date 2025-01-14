@@ -4,7 +4,6 @@ import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import useTodoStore from '../../store/todoStore';
 
-// Register necessary chart elements
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const ProgressCard = () => {
@@ -13,14 +12,13 @@ export const ProgressCard = () => {
   const totalTasks = tasks.length;
   const completionRate = totalTasks ? (completedTasks / totalTasks) * 100 : 0;
 
-  // Define chart data
   const data = {
-    labels: [], // Empty array removes the labels
+    labels: [],
     datasets: [
       {
         data: [completionRate, 100 - completionRate],
-        backgroundColor: ['#3498db', '#e1e1e1'], // Blue for completed, light gray for remaining
-        borderWidth: 0, // Optional: to remove borders between sections
+        backgroundColor: ['#3498db', '#e1e1e1'],
+        borderWidth: 0,
       },
     ],
   };
@@ -40,7 +38,7 @@ export const ProgressCard = () => {
   };
 
   return (
-    <Card>
+    <Card className="shadow-md">
       <div className="p-4 flex flex-col items-center">
         <h3 className="text-lg font-semibold">Progress</h3>
         <div className="text-3xl font-bold mt-2">{Math.round(completionRate)}%</div>
