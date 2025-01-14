@@ -38,7 +38,7 @@ export const ProgressCard = () => {
   };
 
   return (
-    <Card className="shadow-md">
+    <Card >
       <div className="p-4 flex flex-col items-center">
         <h3 className="text-lg font-semibold">Progress</h3>
         <div className="text-3xl font-bold mt-2">{Math.round(completionRate)}%</div>

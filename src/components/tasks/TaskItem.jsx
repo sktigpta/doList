@@ -20,7 +20,7 @@ export const TaskItem = ({ task }) => {
               Favorite
             </span>
           )}
-          <span className={`${task.completed ? 'text-gray-500' : 'text-gray-700'} text-base`}>
+          <span className={`${task.completed ? 'text-gray-500 , line-through' : 'text-gray-700' } text-base `}>
             {task.text}
           </span>
         </div>

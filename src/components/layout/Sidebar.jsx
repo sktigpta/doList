@@ -1,81 +1,123 @@
-import React, { useState } from 'react';
-import { Menu, X, Sun, Moon } from 'lucide-react'; // Import icons for the menu and theme toggle
-import { Avatar } from '../ui/Avatar';
-import { cn } from '../../lib/utils';
+import React from 'react';
+import {
+  ListTodo,
+  CalendarDays,
+  Star,
+  Users,
+  Plus,
+  Menu,
+  Moon,
+  Sun,
+  X
+} from 'lucide-react';
 import { ProgressCard } from '../stats/ProgressCard';
-import { CalendarCard } from '../stats/CalendarCard';
+import useTodoStore from '../../store/todoStore';
 
-export const Sidebar = ({ sidebarOpen, setSidebarOpen, darkMode, setDarkMode }) => {
-  const [activeItem, setActiveItem] = useState('Home');
-  const [isSidebarVisible, setIsSidebarVisible] = useState(true);
-  const menuItems = ['Home', 'Personal', 'Work'];
+const Sidebar = ({ isOpen, setIsOpen, darkMode, setDarkMode }) => {
+  const menuItems = [
+    { icon: <ListTodo size={20} />, label: 'All Tasks' },
+    { icon: <CalendarDays size={20} />, label: 'Today', active: true },
+    { icon: <Star size={20} />, label: 'Important' },
+    { icon: <CalendarDays size={20} />, label: 'Planned' },
+    { icon: <Users size={20} />, label: 'Assigned to me' },
+  ];
 
-  const toggleSidebar = () => {
-    setIsSidebarVisible(!isSidebarVisible);
-    setSidebarOpen(!sidebarOpen);
-  };
-
-  const toggleTheme = () => {
-    setDarkMode(!darkMode);
-  };
+  // Access the tasks array from your store
+  const tasks = useTodoStore((state) => state.tasks);
 
   return (
-    <div
-      className={`relative ${isSidebarVisible ? 'w-70' : 'w-0'} transition-all duration-300 ease-in-out ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'} border-r p-4 overflow-y-auto h-screen`}
-    >
-      <div className="flex flex-row gap-2 absolute top-4 right-4">
-        <button
-          onClick={toggleTheme}
-          className="p-2 bg-gray-200 rounded-full text-gray-600 w-8 h-8 flex items-center justify-center"
-        >
-          {darkMode ? (
-            <Sun className="w-5 h-5 text-yellow-500" />
-          ) : (
-            <Moon className="w-5 h-5 text-gray-800" />
-          )}
-        </button>
+    <div className={darkMode ? 'dark' : ''}>
+      {/* Toggle Menu Button */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={`
+          fixed top-5 z-50 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-neutral-700
+          ${isOpen ? 'left-48' : 'left-4'}
+        `}
+      >
+        {isOpen ? <X size={10} /> : <Menu size={24} />}
+      </button>
 
-        <button
-          onClick={toggleSidebar}
-          className="p-2 bg-gray-200 rounded-full text-gray-600 w-8 h-8 flex items-center justify-center"
-        >
-          {isSidebarVisible ? (
-            <X className="w-full h-full text-gray-600" />
-          ) : (
-            <Menu className="w-full h-full text-gray-600" />
-          )}
-        </button>
-      </div>
-
-      <div className={`flex items-center space-x-3 mb-8 ${isSidebarVisible ? '' : 'hidden'}`}>
-        <Avatar src="/api/placeholder/40/40" fallback="U" />
-        <div className={isSidebarVisible ? '' : 'hidden'}>
-          <h2 className="font-semibold">Workspace</h2>
-          <p className="text-sm text-gray-500">Personal</p>
+      {/* Sidebar */}
+      <div
+        className={`
+          fixed top-0 left-0 h-screen w-64 
+          bg-gray-50 dark:bg-neutral-900 
+          transform transition-transform duration-300 ease-in-out
+          ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+          flex flex-col
+          border-r border-gray-200 dark:border-neutral-800
+        `}
+      >
+        {/* Profile Section */}
+        <div className="p-4 pb-6 flex items-center mt-8">
+          <div className="w-10 h-10 rounded-full overflow-hidden mr-3">
+            <img
+              src="https://portfolio.shaktidhar.pigoo.in/assets/sktigpta-tTFbwdjC.jpg"
+              alt="Profile"
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div>
+            <div className="text-sm font-medium dark:text-white">Hey, ABCD</div>
+          </div>
         </div>
-      </div>
 
-      <nav className={isSidebarVisible ? '' : 'hidden'}>
-        <ul className="space-y-2">
-          {menuItems.map((item) => (
-            <li
-              key={item}
-              onClick={() => setActiveItem(item)}
-              className={cn(
-                "px-3 py-2 rounded-lg cursor-pointer",
-                activeItem === item ? "bg-blue-500 text-white" : "text-gray-600 hover:bg-gray-100"
-              )}
+        {/* Navigation */}
+        <nav className="flex-1">
+          <ul className="space-y-1 px-2">
+            {menuItems.map((item, index) => (
+              <li key={index}>
+                <a
+                  href="#"
+                  className={`
+                    flex items-center px-4 py-2.5 text-sm rounded-lg
+                    ${item.active
+                      ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-500'
+                      : 'hover:bg-gray-100 dark:hover:bg-neutral-800 text-gray-700 dark:text-gray-300'
+                    }
+                  `}
+                >
+                  <span className={`mr-3 ${item.active ? 'text-green-600 dark:text-green-500' : ''}`}>
+                    {item.icon}
+                  </span>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+            <ProgressCard />
+          </ul>
+        </nav>
+
+        {/* Add List Button */}
+        <div className="p-4">
+          <button className="flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
+            <Plus size={20} className="mr-3" />
+            Add list
+          </button>
+        </div>
+
+        {/* Today's Tasks Counter */}
+        <div className="p-4 border-t border-gray-200 dark:border-neutral-800">
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Today Tasks</div>
+              <div className="text-2xl font-semibold dark:text-white">
+                {/* Display the number of tasks */}
+                {tasks.length}
+              </div>
+            </div>
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white p-2 rounded-lg"
             >
-              {item}
-            </li>
-          ))}
-        </ul>
-
-        <div className="mt-8 grid grid-cols-1 gap-4">
-          <ProgressCard />
-          <CalendarCard />
+              {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+          </div>
         </div>
-      </nav>
+      </div>
     </div>
   );
 };
+
+export default Sidebar;
